@@ -1,0 +1,87 @@
+Start LightRAG
+
+Step 1: Install LightRAG
+1. Install from Source (Recommended): bash Copy code   git clone https://github.com/HKUDS/lightrag.git
+2. cd lightrag
+3. pip install -e .
+4.   
+5. OR Install from PyPI: bash Copy code   pip install lightrag-hku
+6.   
+
+Step 2: Set up Working Directory
+1. Define a working directory for LightRAG operations:bash Copy code   mkdir ./dickens
+2.   
+
+Step 3: Set OpenAI API Key (if applicable)
+1. Export your OpenAI key:bash Copy code   export OPENAI_API_KEY="your_openai_api_key"
+2.   
+
+Step 4: Download Sample Data
+1. Download and save a demo text:bash Copy code   curl https://raw.githubusercontent.com/gusye1234/nano-graphrag/main/tests/mock_data.txt > ./book.txt
+2.   
+
+Step 5: Initialize LightRAG
+Use this Python script to set up LightRAG:
+python
+Copy code
+import os
+from lightrag import LightRAG, QueryParam
+from lightrag.llm import gpt_4o_mini_complete  # Replace with your LLM if needed
+
+WORKING_DIR = "./dickens"
+
+if not os.path.exists(WORKING_DIR):
+    os.mkdir(WORKING_DIR)
+
+rag = LightRAG(
+    working_dir=WORKING_DIR,
+    llm_model_func=gpt_4o_mini_complete  # Default: gpt_4o_mini_complete
+)
+
+# Insert data into LightRAG
+with open("./book.txt") as f:
+    rag.insert(f.read())
+
+# Perform various searches
+print(rag.query("What are the top themes in this story?", param=QueryParam(mode="naive")))
+print(rag.query("What are the top themes in this story?", param=QueryParam(mode="local")))
+print(rag.query("What are the top themes in this story?", param=QueryParam(mode="global")))
+print(rag.query("What are the top themes in this story?", param=QueryParam(mode="hybrid")))
+
+Advanced Steps
+
+Step 6: Visualize the Knowledge Graph
+1. Basic Graph Visualization: Run the following for an HTML-based graph visualization: python Copy code   from lightrag.visualization import graph_visual_with_html
+2. 
+3. graph_visual_with_html(WORKING_DIR, output_file="graph.html")
+4.   
+5. Neo4j Integration:
+    * Start Neo4j in Docker: bash Copy code   docker run --rm -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/password neo4j
+    *   
+    * Set Neo4j credentials: bash Copy code   export NEO4J_URI="neo4j://localhost:7687"
+    * export NEO4J_USERNAME="neo4j"
+    * export NEO4J_PASSWORD="password"
+    *   
+    * Initialize LightRAG with Neo4j storage: python Copy code   rag = LightRAG(
+    *     working_dir=WORKING_DIR,
+    *     llm_model_func=gpt_4o_mini_complete,
+    *     graph_storage="Neo4JStorage"
+    * )
+    *   
+
+Step 7: Expand Functionality
+1. Batch Insert: Insert multiple documents: python Copy code   rag.insert(["TEXT1", "TEXT2", "TEXT3"])
+2.   
+3. Incremental Insert: Add new data: python Copy code   with open("./newText.txt") as f:
+4.     rag.insert(f.read())
+5.   
+6. Query Parameters: Fine-tune your search with QueryParam: python Copy code   rag.query("Your question", param=QueryParam(mode="hybrid", top_k=10))
+7.   
+
+Step 8: Run LightRAG API Server (Optional)
+If using API functionality:
+1. Start the server: bash Copy code   uvicorn lightrag.api.openai_lightrag_server:app --reload --port 9621
+2.   
+3. Query the API: bash Copy code   curl -X POST "http://localhost:9621/query" \
+4.     -H "Content-Type: application/json" \
+5.     -d '{"query": "Your question", "mode": "hybrid"}' 
