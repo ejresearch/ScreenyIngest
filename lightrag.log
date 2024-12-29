@@ -1,0 +1,20 @@
+2024-12-29 17:58:32,000 - lightrag - INFO - Logger initialized for working directory: ./lightrag_data
+2024-12-29 17:58:32,000 - lightrag - INFO - Creating working directory ./lightrag_data
+2024-12-29 17:58:32,000 - lightrag - INFO - Load KV llm_response_cache with 0 data
+2024-12-29 17:58:32,000 - lightrag - INFO - Load KV full_docs with 0 data
+2024-12-29 17:58:32,000 - lightrag - INFO - Load KV text_chunks with 0 data
+2024-12-29 17:58:32,073 - lightrag - INFO - Loaded document status storage with 0 records
+2024-12-29 17:58:32,077 - lightrag - INFO - Processing 1 new unique documents
+2024-12-29 17:58:32,561 - lightrag - INFO - Inserting 20 vectors to chunks
+2024-12-29 17:59:05,103 - lightrag - INFO - Inserting entities into storage...
+2024-12-29 17:59:05,128 - lightrag - INFO - Inserting relationships into storage...
+2024-12-29 17:59:05,135 - lightrag - INFO - Inserting 220 vectors to entities
+2024-12-29 17:59:07,305 - lightrag - INFO - Inserting 97 vectors to relationships
+2024-12-29 17:59:09,243 - lightrag - INFO - Writing graph with 222 nodes, 97 edges
+2024-12-29 18:12:24,899 - lightrag - INFO - Logger initialized for working directory: ./lightrag_data
+2024-12-29 18:12:24,900 - lightrag - INFO - Load KV llm_response_cache with 0 data
+2024-12-29 18:12:24,901 - lightrag - INFO - Load KV full_docs with 1 data
+2024-12-29 18:12:24,902 - lightrag - INFO - Load KV text_chunks with 20 data
+2024-12-29 18:12:24,909 - lightrag - INFO - Loaded graph from ./lightrag_data/graph_chunk_entity_relation.graphml with 222 nodes, 97 edges
+2024-12-29 18:12:24,929 - lightrag - INFO - Loaded document status storage with 1 records
+2024-12-29 18:12:24,937 - lightrag - INFO - All documents have been processed or are duplicates
